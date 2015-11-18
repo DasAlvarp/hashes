@@ -9,7 +9,7 @@ public class Utils
     //returns a linkedlist with numbers from 0 to range, a number of times.
     public LinkedList<Integer> getKeys(int number, int range)
     {
-        LinkedList nums = new LinkedList<Integer>();
+        LinkedList<Integer> nums = new LinkedList<>();
         Random randy = new Random();
 
         int tempX;
@@ -25,7 +25,6 @@ public class Utils
                 nums.add(tempX);
             }
         }
-
         return nums;
     }
 }
