@@ -26,16 +26,28 @@ public class AlvarHash
     private void seed()
     {
         //iterate through all the things.
-        int retPoint = retAddress(type, listToFill.get(0));
+        int retPoint = retAddress(listToFill.get(0));
+        int range = 1;
 
         for(int x = 0; x < listToFill.size() - 1; x = x)
         {
+
             if(hashList[retPoint] != 0)
             {
                 if(type)
                 {
-                    //quadratic! Will do later
-                    retPoint += 5;
+                    if(range > 0)
+                    {
+                        retPoint = (retPoint + (int) Math.pow((double) range, 2.0)) % 1019;
+                        range *= -1;
+                    }
+                    else
+                    {
+                        retPoint = (retPoint - (int) Math.pow((double) range, 2.0)) % 1019;
+                        range -= 1;
+                    }
+
+
                 }
                 else
                 {
@@ -47,22 +59,15 @@ public class AlvarHash
             {
                 hashList[retPoint] = listToFill.get(x);
                 x++;
-                retPoint = retAddress(type, listToFill.get(x));
+                range = 1;
+                retPoint = retAddress(listToFill.get(x));
             }
         }
     }
 
-    private int retAddress(boolean type, int key)
+    private int retAddress(int key)
     {
-        if(type)
-        {
-            //yo man, quadratic is funky
-            return 27;
-        }
-        else
-        {
             return key % 1019;
-        }
     }
 
 
@@ -126,7 +131,47 @@ public class AlvarHash
     //see name.
     private String quadraticProbeAndResults()
     {
-        String tret = "";
+        double sucessNum = 0;
+        double sucessProbeNum = 0;
+
+        double failNum = 0;
+        double failProbeNum = 0;
+
+        for(int x = 0; x < 10000; x++)
+        {
+            int probes = 0;
+            boolean successful = false;
+            for(int y = x % 1019; hashList[y] != 0; y = (y + 1) % 1019)
+            {
+                probes++;
+                if(hashList[y] == x)
+                {
+                    successful = true;
+                    break;
+                }
+
+            }
+
+            //managing stats
+            if(successful)
+            {
+                sucessNum++;
+                sucessProbeNum += probes;
+            }
+            else
+            {
+                failNum++;
+                failProbeNum += probes;
+            }
+        }
+        double failRate = failProbeNum / failNum;
+        double sucessRate = sucessProbeNum / sucessNum;
+
+        System.out.println(failProbeNum + ", " + failNum);
+        System.out.println(sucessProbeNum + ", " + sucessNum);
+
+        String tret = "\nFail rate: " + failRate + "\nSucess rate: " + sucessRate;
+
         return tret;
     }
 }
