@@ -7,7 +7,7 @@ public class AlvarHash
 {
     int[] hashList;
     boolean type;
-    LinkedList<Integer> listToFill;
+    LinkedList<Integer> listToFill; //list of keys to FILL the hash. See? I make sense.
     Utils udler = new Utils();
 
     //constructor class for the hash.
@@ -28,7 +28,7 @@ public class AlvarHash
         //iterate through all the things.
         int retPoint = retAddress(type, listToFill.get(0));
 
-        for(int x = 0; x < listToFill.size() - 1; x=x)
+        for(int x = 0; x < listToFill.size() - 1; x = x)
         {
             if(hashList[retPoint] != 0)
             {
@@ -79,7 +79,47 @@ public class AlvarHash
     //see name
     private String linearProbeAnResults()
     {
-        String tret = "doot";
+        double sucessNum = 0;
+        double sucessProbeNum = 0;
+
+        double failNum = 0;
+        double failProbeNum = 0;
+
+        for(int x = 0; x < 10000; x++)
+        {
+            int probes = 0;
+            boolean successful = false;
+            for(int y = x % 1019; hashList[y] != 0; y = (y + 1) % 1019)
+            {
+                probes++;
+                if(hashList[y] == x)
+                {
+                    successful = true;
+                    break;
+                }
+
+            }
+
+            //managing stats
+            if(successful)
+            {
+                sucessNum++;
+                sucessProbeNum += probes;
+            }
+            else
+            {
+                failNum++;
+                failProbeNum += probes;
+            }
+        }
+        double failRate = failProbeNum / failNum;
+        double sucessRate = sucessProbeNum / sucessNum;
+
+        System.out.println(failProbeNum + ", " + failNum);
+        System.out.println(sucessProbeNum + ", " + sucessNum);
+
+        String tret = "\nFail rate: " + failRate + "\nSucess rate: " + sucessRate;
+
         return tret;
     }
 

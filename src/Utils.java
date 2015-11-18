@@ -13,7 +13,7 @@ public class Utils
         Random randy = new Random();
 
         int tempX;
-        for(int x = 0; x < number; x++)
+        for(int x = 0; x < number + 1; x++)
         {
             tempX = randy.nextInt(range) + 1;
             if(nums.contains(tempX))
