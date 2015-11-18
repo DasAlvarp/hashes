@@ -27,10 +27,12 @@ public class AlvarHash
     {
         //iterate through all the things.
         int retPoint = retAddress(listToFill.get(0));
-        int range = 1;
+        int tret = retPoint;
+        int range = 0;
 
         for(int x = 0; x < listToFill.size() - 1; x = x)
         {
+
 
             if(hashList[retPoint] != 0)
             {
@@ -38,16 +40,19 @@ public class AlvarHash
                 {
                     if(range > 0)
                     {
-                        retPoint = (retPoint + (int) Math.pow((double) range, 2.0)) % 1019;
+                        retPoint = (tret + (int) Math.pow((double) range, 2.0)) % 1019;
                         range *= -1;
                     }
                     else
                     {
-                        retPoint = (retPoint - (int) Math.pow((double) range, 2.0)) % 1019;
+                        retPoint = (tret - (int) Math.pow((double) range, 2.0));
+                        while(retPoint < 0)
+                        {
+                            retPoint += 1019;
+                        }
+
                         range -= 1;
                     }
-
-
                 }
                 else
                 {
@@ -59,15 +64,17 @@ public class AlvarHash
             {
                 hashList[retPoint] = listToFill.get(x);
                 x++;
-                range = 1;
-                retPoint = retAddress(listToFill.get(x));
+                range = 0;
+                retPoint = retAddress(listToFill.get(x)) % 1019;
+                tret = retPoint;
             }
         }
+
     }
 
     private int retAddress(int key)
     {
-            return key % 1019;
+        return key % 1019;
     }
 
 
@@ -141,13 +148,29 @@ public class AlvarHash
         {
             int probes = 0;
             boolean successful = false;
-            for(int y = x % 1019; hashList[y] != 0; y = (y + 1) % 1019)
+            int range = 1;
+            int checkPlace = x % 1019;
+            for(int y = x % 1019; hashList[checkPlace] != 0; y = y)
             {
                 probes++;
-                if(hashList[y] == x)
+                if(hashList[checkPlace] == x)
                 {
                     successful = true;
                     break;
+                }
+                if(range > 1)
+                {
+                    checkPlace = (y + (int)Math.pow((double)range, 2.0)) % 1019;
+                    range *= -1;
+                }
+                else
+                {
+                    checkPlace = (y - (int)Math.pow((double)range, 2.0)) % 1019;
+                    while(checkPlace < 0)
+                    {
+                        checkPlace += 1019;
+                    }
+                    range -= 1;
                 }
 
             }
