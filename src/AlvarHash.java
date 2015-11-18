@@ -3,7 +3,7 @@ import java.util.LinkedList;
 /**
  * Created by alvarpq on 18/11/15.
  */
-public class Hash
+public class AlvarHash
 {
     int[] hashList;
     boolean type;
@@ -11,7 +11,7 @@ public class Hash
     Utils udler = new Utils();
 
     //constructor class for the hash.
-    public Hash(int size, int fullNess, boolean probeType, int number, int range)
+    public AlvarHash(int size, boolean probeType, int number, int range)
     {
         hashList = new int[size];
         for(int x = 0; x < size; x++)
@@ -26,12 +26,12 @@ public class Hash
     private void seed()
     {
         //iterate through all the things.
-        for(int x = 0; x < listToFill.size(); x++)
+        int retPoint = retAddress(type, listToFill.get(0));
+
+        for(int x = 0; x < listToFill.size() - 1; x=x)
         {
-            int retPoint = retAddress(type, listToFill.get(x));
             if(hashList[retPoint] != 0)
             {
-                x--;
                 if(type)
                 {
                     //quadratic! Will do later
@@ -40,11 +40,14 @@ public class Hash
                 else
                 {
                     retPoint++;
+                    retPoint = retPoint % 1019;
                 }
             }
             else
             {
                 hashList[retPoint] = listToFill.get(x);
+                x++;
+                retPoint = retAddress(type, listToFill.get(x));
             }
         }
     }
@@ -58,14 +61,32 @@ public class Hash
         }
         else
         {
-            return key % hashList.length;
+            return key % 1019;
         }
     }
 
 
-
-    public String hashAndGiveResults()
+    //a fancy way of deciding whther probe should be done linearly or quadratically.
+    public String probeAndResults()//does probing and stuff. Probably gonna become a mess
     {
-        return "doot";
+        if(type)
+        {
+            return quadraticProbeAndResults();
+        }
+        return linearProbeAnResults();
+    }
+
+    //see name
+    private String linearProbeAnResults()
+    {
+        String tret = "doot";
+        return tret;
+    }
+
+    //see name.
+    private String quadraticProbeAndResults()
+    {
+        String tret = "";
+        return tret;
     }
 }
