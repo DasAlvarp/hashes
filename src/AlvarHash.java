@@ -16,9 +16,8 @@ public class AlvarHash
     {
         hashList = new int[size];
         for(int x = 0; x < size; x++)
-        {
             hashList[x] = 0;
-        }
+
         type = probeType;
         listToFill = udler.getKeys(number, range);
         this.seed();
