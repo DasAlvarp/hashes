@@ -30,15 +30,14 @@ public class AlvarHash
         int tret = retPoint;
         int range = 0;
 
+        //filling list. X is only incremented when something's placed sucessfully.
         for(int x = 0; x < listToFill.size() - 1; x = x)
         {
-
-
             if(hashList[retPoint] != 0)
             {
                 if(type)
                 {
-                    if(range > 0)
+                    if(range > 0)//alternating return
                     {
                         retPoint = (tret + (int) Math.pow((double) range, 2.0)) % 1019;
                         range *= -1;
@@ -54,7 +53,7 @@ public class AlvarHash
                         range -= 1;
                     }
                 }
-                else
+                else//nice and easy input.
                 {
                     retPoint++;
                     retPoint = retPoint % 1019;
@@ -62,6 +61,7 @@ public class AlvarHash
             }
             else
             {
+                //resetting stuff after stuff thrown into hash.
                 hashList[retPoint] = listToFill.get(x);
                 x++;
                 range = 0;
@@ -72,7 +72,7 @@ public class AlvarHash
 
     }
 
-    private int retAddress(int key)
+    private int retAddress(int key)//retunrs address. Silly.
     {
         return key % 1019;
     }
@@ -97,10 +97,12 @@ public class AlvarHash
         double failNum = 0;
         double failProbeNum = 0;
 
+        //looping thru all the possible keys. RIP.
         for(int x = 0; x < 10000; x++)
         {
             int probes = 0;
             boolean successful = false;
+            //for loop that should be a while loop. Sets initial value for y, also increments it, stops when hashlist hits something that's empty.
             for(int y = x % 1019; hashList[y] != 0; y = (y + 1) % 1019)
             {
                 probes++;
@@ -127,10 +129,8 @@ public class AlvarHash
         double failRate = failProbeNum / failNum;
         double sucessRate = sucessProbeNum / sucessNum;
 
-        System.out.println(failProbeNum + ", " + failNum);
-        System.out.println(sucessProbeNum + ", " + sucessNum);
 
-        String tret = "\nFail rate: " + failRate + "\nSucess rate: " + sucessRate;
+        String tret = "\nLinear probe: \nAverage probes to fail: " + failRate + "\nAverage probes to suceed: " + sucessRate;
 
         return tret;
     }
@@ -144,12 +144,16 @@ public class AlvarHash
         double failNum = 0;
         double failProbeNum = 0;
 
+
+        //through all possible keys
         for(int x = 0; x < 10000; x++)
         {
             int probes = 0;
             boolean successful = false;
             int range = 1;
-            int checkPlace = x % 1019;
+            int checkPlace = x % 1019;//checkplace is basically Y for when Y has to be edited by i
+
+            //for loop that shouln't be a for loop.
             for(int y = x % 1019; hashList[checkPlace] != 0; y = y)
             {
                 probes++;
@@ -160,6 +164,7 @@ public class AlvarHash
                 }
                 if(range > 1)
                 {
+                    //alternating L. Alternates and stuff
                     checkPlace = (y + (int)Math.pow((double)range, 2.0)) % 1019;
                     range *= -1;
                 }
@@ -190,10 +195,8 @@ public class AlvarHash
         double failRate = failProbeNum / failNum;
         double sucessRate = sucessProbeNum / sucessNum;
 
-        System.out.println(failProbeNum + ", " + failNum);
-        System.out.println(sucessProbeNum + ", " + sucessNum);
 
-        String tret = "\nFail rate: " + failRate + "\nSucess rate: " + sucessRate;
+        String tret = "\nQuadratic Probing: \nFail rate: " + failRate + "\nSucess rate: " + sucessRate;
 
         return tret;
     }
