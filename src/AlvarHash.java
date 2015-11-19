@@ -2,6 +2,7 @@ import java.util.LinkedList;
 
 /**
  * Created by alvarpq on 18/11/15.
+ *
  */
 public class AlvarHash
 {
@@ -31,7 +32,7 @@ public class AlvarHash
         int range = 0;
 
         //filling list. X is only incremented when something's placed sucessfully.
-        for(int x = 0; x < listToFill.size() - 1; x = x)
+        for(int x = 0; x < listToFill.size() - 1;)
         {
             if(hashList[retPoint] != 0)
             {
@@ -131,9 +132,8 @@ public class AlvarHash
         double sucessRate = sucessProbeNum / sucessNum;
 
 
-        String tret = "\nLinear probe: \nAverage probes to fail: " + failRate + "\nAverage probes to suceed: " + sucessRate;
 
-        return tret;
+        return "\nLinear probe: \nAverage probes to fail: " + failRate + "\nAverage probes to suceed: " + sucessRate;
     }
 
     //see name.
@@ -155,7 +155,7 @@ public class AlvarHash
             int checkPlace = x % 1019;//checkplace is basically Y for when Y has to be edited by i
 
             //for loop that shouln't be a for loop.
-            for(int y = x % 1019; hashList[checkPlace] != 0; y = y)
+            for(int y = x % 1019; hashList[checkPlace] != 0;)
             {
                 probes++;
                 if(hashList[checkPlace] == x)
@@ -198,8 +198,7 @@ public class AlvarHash
         double sucessRate = sucessProbeNum / sucessNum;
 
 
-        String tret = "\nQuadratic Probing: \nAverage Probes to Fail: " + failRate + "\nAverage Probes to Suceed: " + sucessRate;
 
-        return tret;
+        return "\nQuadratic Probing: \nAverage Probes to Fail: " + failRate + "\nAverage Probes to Suceed: " + sucessRate;
     }
 }
