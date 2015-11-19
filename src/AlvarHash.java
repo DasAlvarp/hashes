@@ -41,7 +41,6 @@ public class AlvarHash
                     if(range > 0)//alternating return
                     {
                         retPoint = (tret + (int) Math.pow((double) range, 2.0)) % 1019;
-                        range *= -1;
                     }
                     else
                     {
@@ -52,8 +51,8 @@ public class AlvarHash
                         }
 
                         range -= 1;
-                        range *= -1;
                     }
+                    range *= -1;
                 }
                 else//nice and easy input.
                 {
