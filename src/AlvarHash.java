@@ -113,7 +113,6 @@ public class AlvarHash
                     successful = true;
                     break;
                 }
-
             }
 
             //managing stats
@@ -130,7 +129,6 @@ public class AlvarHash
         }
         double failRate = failProbeNum / failNum;
         double sucessRate = sucessProbeNum / sucessNum;
-
 
 
         return "\nLinear probe: \nAverage probes to fail: " + failRate + "\nAverage probes to suceed: " + sucessRate;
@@ -178,8 +176,6 @@ public class AlvarHash
                     range -= 1;
                 }
                 range *= -1;
-
-
             }
 
             //managing stats
