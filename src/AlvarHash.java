@@ -51,6 +51,7 @@ public class AlvarHash
                         }
 
                         range -= 1;
+                        range *= -1;
                     }
                 }
                 else//nice and easy input.
@@ -162,11 +163,10 @@ public class AlvarHash
                     successful = true;
                     break;
                 }
-                if(range > 1)
+                if(range > 0)
                 {
                     //alternating L. Alternates and stuff
                     checkPlace = (y + (int)Math.pow((double)range, 2.0)) % 1019;
-                    range *= -1;
                 }
                 else
                 {
@@ -177,6 +177,8 @@ public class AlvarHash
                     }
                     range -= 1;
                 }
+                range *= -1;
+
 
             }
 
@@ -196,7 +198,7 @@ public class AlvarHash
         double sucessRate = sucessProbeNum / sucessNum;
 
 
-        String tret = "\nQuadratic Probing: \nFail rate: " + failRate + "\nSucess rate: " + sucessRate;
+        String tret = "\nQuadratic Probing: \nAverage Probes to Fail: " + failRate + "\nAverage Probes to Suceed: " + sucessRate;
 
         return tret;
     }
