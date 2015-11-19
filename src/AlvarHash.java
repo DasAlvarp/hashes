@@ -14,10 +14,7 @@ public class AlvarHash
     public AlvarHash(int size, boolean probeType, int number, int range)
     {
         hashList = new int[size];
-        for(int x = 0; x < size; x++)
-        {
-            hashList[x] = 0;
-        }
+        Arrays.fill(hashList, 0);
         type = probeType;
         listToFill = udler.getKeys(number, range);
         this.seed();
