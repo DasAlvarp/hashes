@@ -39,16 +39,12 @@ public class AlvarHash
                 if(type)
                 {
                     if(range > 0)//alternating return
-                    {
                         retPoint = (tret + (int) Math.pow((double) range, 2.0)) % 1019;
-                    }
                     else
                     {
                         retPoint = (tret - (int) Math.pow((double) range, 2.0));
                         while(retPoint < 0)
-                        {
                             retPoint += 1019;
-                        }
 
                         range -= 1;
                     }
@@ -82,9 +78,7 @@ public class AlvarHash
     public String probeAndResults()//does probing and stuff. Probably gonna become a mess
     {
         if(type)
-        {
             return quadraticProbeAndResults();
-        }
         return linearProbeAnResults();
     }
 
@@ -103,7 +97,7 @@ public class AlvarHash
             int probes = 0;
             boolean successful = false;
             //for loop that should be a while loop. Sets initial value for y, also increments it, stops when hashlist hits something that's empty.
-            for(int y = x % 1019; hashList[y] != 0; y = (y + 1) % 1019)
+            for(int y = x % 1019; hashList[y] != 0; y = (y + 1) % 1019)//call 1800-help-me in case of for loop abuse
             {
                 probes++;
                 if(hashList[y] == x)
@@ -161,7 +155,7 @@ public class AlvarHash
                 }
                 if(range > 0)
                 {
-                    //alternating L. Alternates and stuff
+                    //alternating L. Ranges and stuff
                     checkPlace = (y + (int)Math.pow((double)range, 2.0)) % 1019;
                 }
                 else
