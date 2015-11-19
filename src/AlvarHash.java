@@ -71,7 +71,6 @@ public class AlvarHash
                 tret = retPoint;
             }
         }
-
     }
 
     private int retAddress(int key)//retunrs address. Silly.
@@ -192,7 +191,6 @@ public class AlvarHash
         }
         double failRate = failProbeNum / failNum;
         double sucessRate = sucessProbeNum / sucessNum;
-
 
 
         return "\nQuadratic Probing: \nAverage Probes to Fail: " + failRate + "\nAverage Probes to Suceed: " + sucessRate;
